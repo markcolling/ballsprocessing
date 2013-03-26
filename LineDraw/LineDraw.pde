@@ -1,54 +1,67 @@
-float lastmousedownX = 200;
-float lastmousedownY = 200;
-float lastmouseupX = 250;
-float lastmouseupY = 250;
-float bx;
-float by;
-int lineGrabOffset = 10;
-boolean OverLineGrab = false;
-boolean locked = false;
-float xOffset = 0.0; 
-float yOffset = 0.0; 
+float lineX1 = 200;
+float lineY1 = 200;
+float lineX2 = 250;
+float lineY2 = 250;
+int NumOfLines = 25; //Max number of lines
+int currentline = 0; //current line being drawn
+
+//Create the array of "Line" objects
+Line[] lines = new Line[NumOfLines];
 
 void setup() 
 {
   size(640, 360);
-  bx = 250;
-  by = 250;
+
 }
 
 void draw() 
 { 
-  background(0);
-
-    fill(153);
-    stroke(153);
-    strokeWeight(4);
-    line(lastmousedownX,lastmousedownY,lastmouseupX,lastmouseupY);
-
+  background(103);
+  //Loop through the array and draw the lines (calling the display method)
+  for(int i = 1; i <lines.length; i++){
+    if(lines[i]!=null) {
+    lines[i].display();
+    }
+  }
 }
 
 void mousePressed() 
 {
-  locked = false;
-  lastmousedownX = mouseX; 
-  lastmousedownY = mouseY; 
-  lastmouseupX = mouseX; 
-  lastmouseupY = mouseY; 
-
+  //Increment the array counter
+  currentline = currentline+1;
+  //Add a new line object to the array
+  lines[currentline] = new Line(103,mouseX,mouseY,mouseX,mouseY);
 }
 
 void mouseDragged() {
-   locked = false;
-   lastmouseupX = mouseX; 
-   lastmouseupY = mouseY; 
+  //Update the second point of the line
+   lines[currentline].lineX2 = mouseX;
+   lines[currentline].lineY2 = mouseY;
   }
 
-
-void mouseReleased() {
-  locked = true;
-    lastmouseupX = mouseX;
-    lastmouseupY = mouseY;
+class Line {
+  public color c; 
+  public float lineX1;
+  public float lineY1;
+  public float lineX2;
+  public float lineY2;
+ 
+    Line(color tempc, float templineX1, float templineY1, float templineX2, float templineY2) {
+    
+    c = tempc;
+    lineX1 = templineX1;
+    lineY1 = templineY1;
+    lineX2 = templineX2;
+    lineY2 = templineY2;
+   
+    }
+    
+  //Draw the current line to the screen
+  void display() {
+      //draw
+      stroke(200);
+      strokeWeight(4);
+      line(lineX1,lineY1,lineX2,lineY2);
+  }
 }
-
 
