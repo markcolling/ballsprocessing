@@ -1,4 +1,4 @@
-int NumOfLines = 25; //Max number of lines
+int NumOfLines = 24; //Max number of lines
 int nextLineInst = 0; //Next empty slot for a new line in the Line Array
 float grabAccuracy = 10; //Accuracy of the click when grabbing the end of a line
 int activeLine = 0; //Current line being moved
@@ -45,23 +45,22 @@ void mouseDragged() {
   }
 }
 
-void checkHandle(){
+boolean checkHandle(){
   int i = 1;
-    existHandle = false;
-    while (lines [i] != null && i <= NumOfLines) {
-        println (i);    
+    while (i <= NumOfLines - 1  && lines [i] != null ) {
         if(dist(mouseX,mouseY,lines[i].X1,lines[i].Y1) <= grabAccuracy) {
               activeLine = i;
               activeHandle = 1;
-              existHandle = true;
+              checkHandle = true
         }
         else if(dist(mouseX,mouseY,lines[i].X2,lines[i].Y2) <= grabAccuracy) {
               activeLine = i;
               activeHandle = 2;
-              existHandle = true;
+              checkHandle = true;
         }
       i += 1;
       }
+  return checkHandles
   }
 
 
@@ -78,29 +77,4 @@ void newLine(){
           activeHandle = 2;
 }
 
-class Line {
-  public color c; 
-  public float X1;
-  public float Y1;
-  public float X2;
-  public float Y2;
-  
-    Line(color tempc, float templineX1, float templineY1, float templineX2, float templineY2) {
-    
-    c = tempc;
-    X1 = templineX1;
-    Y1 = templineY1;
-    X2 = templineX2;
-    Y2 = templineY2;
-    }
-    
-  //Draw the current line to the screen
-  void display() {
-      //draw
-      stroke(200);
-      strokeWeight(4);
-      line(X1,Y1,X2,Y2);
-  }
-
-}
 
