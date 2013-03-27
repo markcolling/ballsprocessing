@@ -45,22 +45,23 @@ void mouseDragged() {
   }
 }
 
-boolean checkHandle(){
+void checkHandle(){
   int i = 1;
+    existHandle = false;
     while (i <= NumOfLines - 1  && lines [i] != null ) {
         if(dist(mouseX,mouseY,lines[i].X1,lines[i].Y1) <= grabAccuracy) {
               activeLine = i;
               activeHandle = 1;
-              checkHandle = true
+              existHandle = true;
         }
         else if(dist(mouseX,mouseY,lines[i].X2,lines[i].Y2) <= grabAccuracy) {
               activeLine = i;
               activeHandle = 2;
-              checkHandle = true;
+              existHandle = true;
         }
       i += 1;
       }
-  return checkHandles
+      
   }
 
 
