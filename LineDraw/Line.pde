@@ -21,6 +21,6 @@ class Line {
       strokeWeight(4);
       line(X1,Y1,X2,Y2);
   }
-
 }
+
 
